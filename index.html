@@ -6,7 +6,67 @@
   <link href="pages/index.css" rel="stylesheet">
   <title>Mesto</title>
 </head>
-<body>
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="images/logo.svg" alt="Логотип">
+  </header>
   <link href="script/script.js">
+  <section class="profile">
+    <img class="profile__avatar" src="/images/cousteau.jpg" alt="Жак-Ив Кусто">
+    <div class="profile__info">
+      <div class="profile__title-wrapper">
+        <h2 class="profile__title">Жак-Ив Кусто</h2>
+        <button class="profile__pencil-button"></button>
+      </div>
+      <p class="profile__subtitle">Исследователь океана</p>
+    </div>
+    <button class="profile__add-button"></button>
+  </section>
+  <section class="elements">
+    <ul class="elements__list">
+      <li class="elements__element">
+        <img class="elements__image" src="/images/photo-karachaevsk.jpg" alt="Карачаевск">
+        <p class="elements__description">Карачаевск</p>
+        <img class="elements__like" src="/images/icon-heart.svg" alt="Лайк">
+      </li>
+      <li class="elements__element">
+        <img class="elements__image" src="/images/photo-elbrus.jpg" alt="Эльбрус">
+        <p class="elements__description">Гора Эльбрус</p>
+        <img class="elements__like" src="/images/icon-heart.svg" alt="Лайк">
+      </li>
+      <li class="elements__element">
+        <img class="elements__image" src="/images/photo-dombai.jpg" alt="Домбай">
+        <p class="elements__description">Домбай</p>
+        <img class="elements__like" src="/images/icon-heart.svg" alt="Лайк">
+      </li>
+      <li class="elements__element">
+        <img class="elements__image" src="/images/photo-elbrus.jpg" alt="Эльбрус">
+        <p class="elements__description">Гора Эльбрус</p>
+        <img class="elements__like" src="/images/icon-heart.svg" alt="Лайк">
+      </li>
+      <li class="elements__element">
+        <img class="elements__image" src="/images/photo-dombai.jpg" alt="Домбай">
+        <p class="elements__description">Домбай</p>
+        <img class="elements__like" src="/images/icon-heart.svg" alt="Лайк">
+      </li>
+      <li class="elements__element">
+        <img class="elements__image" src="/images/photo-karachaevsk.jpg" alt="Карачаевск">
+        <p class="elements__description">Карачаево-Черкесия</p>
+        <img class="elements__like" src="/images/icon-heart.svg" alt="Лайк">
+      </li>
+    </ul>
+  </section>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
+  <div class="popup">
+    <div class="popup__container">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <input class="popup__name" type="text" value="Жак-Ив Кусто">
+      <input class="popup__description" type="text" value="Исследователь океана">
+      <button class="popup__button-save">Сохранить</button>
+      <button class="popup__button-close"></button>
+    </div>
+  </div>
 </body>
 </html>

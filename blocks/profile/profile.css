@@ -1,0 +1,26 @@
+.profile {
+  max-width: 880px;
+  min-height: 120px;
+  padding-top: 40px;
+  margin: 0 auto 0;
+  color: white;
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*
+.profile,
+.profile__title-wrapper,
+.profile__avatar,
+.profile__subtitle {
+  border:1px solid red;
+}*/
+@media screen and (max-width: 640px) {
+  .profile {
+    padding-top: 38.25px;
+    flex-direction: column;
+    text-align: center;
+  }
+}

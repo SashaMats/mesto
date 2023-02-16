@@ -1,0 +1,9 @@
+.elements__like {
+  grid-area: like;
+  cursor: pointer;
+}
+
+.elements__like:hover {
+  opacity: 0.6;
+  transition: opacity 0.2s linear;
+}

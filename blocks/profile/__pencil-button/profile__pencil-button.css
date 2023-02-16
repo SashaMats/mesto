@@ -1,0 +1,16 @@
+.profile__pencil-button {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #FFFFFF;
+  background-color: black;
+  background-image: url("../../../images/ico-pencil.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 18px;
+  cursor: pointer;
+}
+
+.profile__pencil-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.2s linear;
+}
