@@ -1,13 +1,11 @@
 .profile__title-wrapper {
-  height: 48px;
   display: flex;
   align-items: flex-end;
 }
 
 @media screen and (max-width: 640px) {
   .profile__title-wrapper {
-    height: 32.68px;
     align-items: flex-start;
-    transform: translate(22px, 0px);
+    transform: translate(14px, 0px);
   }
 }

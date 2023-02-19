@@ -6,11 +6,21 @@
   background-image: url("../../../images/ico-pencil.svg");
   background-repeat: no-repeat;
   background-position: center;
-  margin-left: 18px;
+  margin-left: 25px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 
 .profile__pencil-button:hover {
   opacity: 0.6;
   transition: opacity 0.2s linear;
+}
+
+@media screen and (max-width: 640px) {
+  .profile__pencil-button {
+    width: 18px;
+    height: 18px;
+    margin-left: 14px;
+    margin-top: 12px;
+  }  
 }

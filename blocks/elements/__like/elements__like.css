@@ -1,6 +1,7 @@
 .elements__like {
   grid-area: like;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .elements__like:hover {

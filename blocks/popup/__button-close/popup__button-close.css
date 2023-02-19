@@ -1,7 +1,7 @@
 .popup__button-close {
   position: fixed;
   content: '';
-  top: calc(50% - 205px);
+  top: calc(50% - 330px);
   left: calc(50% + 223.5px);
   width: 32px;
   height: 32px;

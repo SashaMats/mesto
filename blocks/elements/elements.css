@@ -11,3 +11,8 @@
     min-width: 282px;
   }
 }
+@media screen and (max-width: 640px) {
+  .elements {
+    padding-top: 36px;
+  }
+}
