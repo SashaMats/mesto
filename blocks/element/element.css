@@ -1,4 +1,4 @@
-.elements__element {
+.element {
   background-color: #ffffff;
   min-width: 282px;
   border-radius: 10px;
@@ -9,4 +9,5 @@
   padding-bottom: 25px;
   grid-template-areas: "image image"
                         "description like";
+  grid-template-columns: 78% 22%;
 }

@@ -1,4 +1,4 @@
-.elements__description {
+.element__description {
   grid-area: description;
   margin: 25px 0 0;
   font-weight: 900;
@@ -7,5 +7,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  width: 178px;
+  max-width: 178px;
+  width: 100%;
 }

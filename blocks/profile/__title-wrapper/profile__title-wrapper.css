@@ -1,11 +1,10 @@
 .profile__title-wrapper {
-  display: flex;
-  align-items: flex-end;
+  display: inline-block;
+  position: relative;
 }
 
 @media screen and (max-width: 640px) {
   .profile__title-wrapper {
     align-items: flex-start;
-    transform: translate(14px, 0px);
   }
 }

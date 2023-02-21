@@ -1,17 +1,22 @@
-.popup__description {
+.popup__input {
   font-family: inherit;
   font-weight: 400;
   font-size: 14px;
   line-height: 16.94px;
-  width: 358px;
+  width: 100%;
   border: none;
   height: 27px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin-top: 25px;
+  margin-top: 45px;
+  padding: 0;
+}
+
+.popup__input:nth-child(2){
+  margin-top: 27px;
 }
 
 @media screen and (max-width: 640px) {
-  .popup__description {
-    width: 238px; 
+  .popup__input {
+    margin-top: 75px;
   }
 }
