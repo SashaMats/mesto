@@ -2,6 +2,12 @@
   grid-area: like;
   cursor: pointer;
   margin-bottom: 5px;
+  padding: 0;
+  width: 22px;
+  height: 19px;
+  border: 0;
+  background-color: inherit;
+  background-image: url("../../../images/icon-heart.svg");
 }
 
 .element__like:hover {

@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 670px) {
   .profile__title {
     font-size: 27px;
     margin-top: 5px;
