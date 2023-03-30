@@ -1,0 +1,17 @@
+.element__wastebasket {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 20px; 
+  right: 20px;
+  cursor: pointer;
+  border: 0;
+  background-repeat: no-repeat;
+  background-color: rgba(1,1,1,0);
+  background-image: url("../../../images/icon-trash.svg");
+}
+
+.element__wastebasket:hover {
+  opacity: 0.6;
+  transition: opacity 0.2s linear;
+}
