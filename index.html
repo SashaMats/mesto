@@ -32,10 +32,10 @@
   </footer>
   <div id="ProfilePopup" class="popup popup_profile">
     <div  class="popup__container">
-      <h3 class="popup__title">Редактировать профиль</h3>
       <form id="ProfileForm" name="profile-info" class="popup__form popup__form_info">
-        <input name="name" class="popup__input popup__input_text_name" type="text" value="Жак-Ив Кусто">
-        <input name="description" class="popup__input popup__input_text_description" type="text" value="Исследователь океана">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <input name="name" class="popup__input popup__input_text_name" type="text" placeholder="Имя">
+        <input name="description" class="popup__input popup__input_text_description" type="text" placeholder="О себе">
         <button type="submit" class="popup__button-save">Сохранить</button>
       </form>
       <button id="CloseProfilePopup" aria-label="Закрыть окно" type="button" class="popup__button-close"></button>
@@ -43,20 +43,20 @@
   </div>
   <div id="PlacePopup" class="popup popup_add-place">
     <div  class="popup__container">
-      <h3 class="popup__title">Новое место</h3>
       <form id="PlaceForm" name="place" class="popup__form popup__form_place">
-        <input name="title" class="popup__input popup__input_place_name" type="text" value="Название">
-        <input name="link" class="popup__input popup__input_place_url" type="text" value="Ссылка на картинку">
+        <h3 class="popup__title">Новое место</h3>
+        <input name="title" class="popup__input popup__input_place_name" type="text" placeholder="Название">
+        <input name="link" class="popup__input popup__input_place_url" type="text" placeholder="Ссылка на картинку">
         <button type="submit" class="popup__button-save">Сохранить</button>
       </form>
       <button id="ClosePlacePopup" aria-label="Закрыть окно" type="button" class="popup__button-close"></button>
     </div>
   </div>
-  <div id="imgPopup" class="popup-img">
-    <div class="popup-img__container">
-        <img class="popup-img__image">
-        <p class="popup-img__title"></p>
-        <button id="ClosePopup-img" aria-label="Закрыть окно" type="button" class="popup-img__button-close"></button>
+  <div id="imgPopup" class="popup popup_img">
+    <div class="popup__container">
+        <img class="popup__image">
+        <p class="popup__title popup__title_image-description"></p>
+        <button id="ClosePopup-img" aria-label="Закрыть окно" type="button" class="popup__button-close"></button>
     </div>
   </div>
   <template id="element">
@@ -67,6 +67,9 @@
       <button id="LikeButton" type="button" class="element__like" aria-label="Лайк"></button>
     </li>
   </template>
+  <script src="scripts/cards.js"></script>
   <script src="scripts/index.js"></script>
 </body>
 </html>
+
+
