@@ -13,7 +13,7 @@ const nameInput = profileFormElement.querySelector('.popup__input_text_name');
 const jobInput = profileFormElement.querySelector('.popup__input_text_description');
 
 
-const placeFormElement = document.getElementById('PlaceForm');
+const placeFormElement = document.forms.placeForm;
 const titleInput = placeFormElement.querySelector('.popup__input_place_name');
 const urlInput = placeFormElement.querySelector('.popup__input_place_url');
 
@@ -29,6 +29,8 @@ const popupImg = document.querySelector('.popup_img');
 const popupCloseButton = document.querySelector('.popup__button-close');
 const popup = document.querySelector('.popup');
 
+const popups = document.querySelectorAll('.popup');
+
 const popupImgUrl = imgPopup.querySelector('.popup__image');
 const popupImgTitle = imgPopup.querySelector('.popup__title');
 
@@ -37,12 +39,33 @@ const popupImgTitle = imgPopup.querySelector('.popup__title');
 // Функция открытие/закрытие popup
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
+
+
 function editPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', (evt) => closePopupEsc(evt, popup));
+  closePopupOverlay(popup);
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', (evt) => closePopupEsc(evt, popup));
+};
+
+function closePopupOverlay(popup){
+  popups.forEach(function(popup) {
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+      };
+    });
+  });
+};
+
+function closePopupEsc(evt, popup) {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  };
 };
 
 closePlacePopupButton.addEventListener('click', 
@@ -51,7 +74,6 @@ closeProfilePopupButton.addEventListener('click',
 () =>  closePopup(profilePopup));
 closeImagePopup.addEventListener('click', 
 () =>  closePopup(popupImg));
-
 
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
@@ -114,7 +136,8 @@ function profileInfoForm (evt) {
   const jobValue = jobInput.value
   // Выберите элементы, куда должны быть вставлены значения полей
   profileTitle.textContent = nameValue;
-  profileSubtitle.textContent = jobValue;
+  profileSubtitle.textContent = jobValue; 
+  
   // Вставьте новые значения с помощью textContent
   closePopup(profilePopup);
 }

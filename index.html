@@ -32,10 +32,12 @@
   </footer>
   <div id="ProfilePopup" class="popup popup_profile">
     <div  class="popup__container">
-      <form id="ProfileForm" name="profile-info" class="popup__form popup__form_info">
+      <form id="ProfileForm" name="profileInfoForm" class="popup__form popup__form_info" novalidate>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <input name="name" class="popup__input popup__input_text_name" type="text" placeholder="Имя">
-        <input name="description" class="popup__input popup__input_text_description" type="text" placeholder="О себе">
+        <input name="name" class="popup__input popup__input_text_name" type="text" placeholder="Имя" minlength="2" maxlength="40">
+        <span class="popup__input-error name-input-error"></span>
+        <input name="description" class="popup__input popup__input_text_description" type="text" placeholder="О себе" minlength="2" maxlength="200">
+        <span class="popup__input-error description-input-error"></span>
         <button type="submit" class="popup__button-save">Сохранить</button>
       </form>
       <button id="CloseProfilePopup" aria-label="Закрыть окно" type="button" class="popup__button-close"></button>
@@ -43,10 +45,12 @@
   </div>
   <div id="PlacePopup" class="popup popup_add-place">
     <div  class="popup__container">
-      <form id="PlaceForm" name="place" class="popup__form popup__form_place">
+      <form id="PlaceForm" name="placeForm" class="popup__form popup__form_place">
         <h3 class="popup__title">Новое место</h3>
-        <input name="title" class="popup__input popup__input_place_name" type="text" placeholder="Название">
-        <input name="link" class="popup__input popup__input_place_url" type="text" placeholder="Ссылка на картинку">
+        <input name="title" class="popup__input popup__input_place_name" type="text" placeholder="Название" minlength="2" maxlength="30">
+        <span class="popup__input-error title-input-error"></span>
+        <input name="link" class="popup__input popup__input_place_url" type="url" placeholder="Ссылка на картинку">
+        <span class="popup__input-error link-input-error"></span>
         <button type="submit" class="popup__button-save">Сохранить</button>
       </form>
       <button id="ClosePlacePopup" aria-label="Закрыть окно" type="button" class="popup__button-close"></button>
@@ -69,7 +73,6 @@
   </template>
   <script src="scripts/cards.js"></script>
   <script src="scripts/index.js"></script>
+  <script src="scripts/validate.js"></script>
 </body>
 </html>
-
-
