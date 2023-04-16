@@ -33,8 +33,6 @@ function hideInputError(formElement, inputElement, {inputErrorClass, errorClass}
 };
 
 function isButtonValid(button, inputList) {
-  console.log(button);
-  console.log(inputList.some(item => !item.validity.valid) || inputList.some(input => input.value.length === 0));
   return inputList.some(item => !item.validity.valid) || inputList.some(input => input.value.length === 0);
 };
 
