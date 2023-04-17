@@ -33,27 +33,38 @@ const popups = document.querySelectorAll('.popup');
 
 const popupImgUrl = imgPopup.querySelector('.popup__image');
 const popupImgTitle = imgPopup.querySelector('.popup__title');
+const popupButtonSaveIndex = document.querySelector('.popup__button-save');
 
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
 // Функция открытие/закрытие popup
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
+function noShowButton(popup) {
+  const button = Array.from(popup.querySelectorAll('.popup__button-save'));
+  button.forEach((item) => {
+    item.classList.add('popup__button-save_status-disactive');
+      console.log(item);
+  });
 
+}
 
 function editPopup(popup) {
-  if (popup.id = 'PlacePopup') {
-    titleInput.value = '';
-    urlInput.value = '';
-  };
-  popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
-  
+  popup.classList.add('popup_opened');
+
+    noShowButton(popup);
 };
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupEsc);
+    cleanInput(popup);
+};
+
+function cleanInput(popup) {
+    const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+    inputList.forEach((item) => {item.value = '';});  
 };
 
 function closePopupEsc(evt) {

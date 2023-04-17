@@ -1,4 +1,4 @@
-const objects = ({
+const settings = ({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button-save',
@@ -6,8 +6,7 @@ const objects = ({
   inputErrorClass: 'popup__input_evt-error',
   errorClass: 'popup__input-error_active'
 });
-
-
+enableValidation(settings);
 
 function hideButton(button, {inactiveButtonClass}) {
   button.classList.add(inactiveButtonClass);
@@ -32,37 +31,33 @@ function hideInputError(formElement, inputElement, {inputErrorClass, errorClass}
   errorElement.classList.remove(errorClass);
 };
 
-function isButtonValid(button, inputList) {
-  return inputList.some(item => !item.validity.valid) || inputList.some(input => input.value.length === 0);
+function isButtonValid(inputList) { 
+  return inputList.some(item => !item.validity.valid); 
 };
 
 function isValid(formElement, inputElement) {
     if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage, objects);
+      showInputError(formElement, inputElement, inputElement.validationMessage, settings);
     } else {
-      hideInputError(formElement, inputElement, objects);
+      hideInputError(formElement, inputElement, settings);
     }
 };
 
-function setEventListeners(formElement, inputElement) {
-  const button = formElement.querySelector(objects.submitButtonSelector);
-  hideButton(button, objects);
-  const inputList = Array.from(formElement.querySelectorAll(inputElement));
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-      if (isButtonValid(button, inputList)) {hideButton(button, objects)}
-      else {showButton(button, objects)}
-    });
-  });
+function setEventListeners(formElement, inputElement, {submitButtonSelector}) { 
+  const button = formElement.querySelector(submitButtonSelector);
+  const inputList = Array.from(formElement.querySelectorAll(inputElement)); 
+  inputList.forEach((inputElement) => { 
+    inputElement.addEventListener('input', () => { 
+      isValid(formElement, inputElement); 
+      if (isButtonValid(inputList)){hideButton(button, settings);} 
+      else {showButton(button, settings);} 
+    }); 
+  }); 
 };
 
 function enableValidation({formSelector, inputSelector}) {
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((item) => {
-    setEventListeners(item, inputSelector);
+    setEventListeners(item, inputSelector, settings);
   });
 };
-
-
-enableValidation(objects);
