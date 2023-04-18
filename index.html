@@ -46,7 +46,7 @@
   <div id="PlacePopup" class="popup popup_add-place">
     <div  class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form id="PlaceForm" name="placeForm" class="popup__form popup__form_place">
+      <form id="PlaceForm" name="placeForm" class="popup__form popup__form_place" novalidate>
         <input name="title" class="popup__input popup__input_place_name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
         <span class="popup__input-error title-input-error"></span>
         <input name="link" class="popup__input popup__input_place_url" type="url" placeholder="Ссылка на картинку" required>
@@ -73,6 +73,6 @@
   </template>
   <script src="scripts/cards.js"></script>
   <script src="scripts/index.js"></script>
-  <script src="scripts/validation.js"></script>
+  <script src="scripts/validate.js"></script>
 </body>
 </html>
