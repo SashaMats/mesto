@@ -1,3 +1,6 @@
+import initialCards from './cards.js';
+import Card from './card.js';
+import FormValidator from './FormValidator.js';
 
 const profilePopup = document.getElementById('ProfilePopup');
 const placePopup = document.getElementById('PlacePopup');
@@ -32,6 +35,15 @@ const popupCloseButton = document.querySelector('.popup__button-close');
 const popupImgUrl = imgPopup.querySelector('.popup__image');
 const popupImgTitle = imgPopup.querySelector('.popup__title');
 
+
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_status-disactive',
+  inputErrorClass: 'popup__input_evt-error',
+  errorClass: 'popup__input-error_active'
+};
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
 // Функция открытие/закрытие popup
@@ -79,43 +91,12 @@ profilePopup.addEventListener('mousedown', (evt) => checkClick(evt, profilePopup
 placePopup.addEventListener('mousedown', (evt) => checkClick(evt, placePopup));
 popupImg.addEventListener('mousedown', (evt) => checkClick(evt, popupImg));
 
-
-//---------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------
-// Функция создания карточки
-//---------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------
-
-function createCard(name, link){
-  const element = elements.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__description').textContent = name;
-  element.querySelector('.element__image').src = link;
-  element.querySelector('.element__image').alt = name;
-
-  //--- Функция Лайк----//
-  const likes = element.querySelector('.element__like');
-  likes.addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like_active');
-  });
-  //--- Функция Корзина----//
-  const wasteBasket = element.querySelector('.element__wastebasket');
-  wasteBasket.addEventListener('click', function(){
-  const listItem = wasteBasket.closest('.element');
-  listItem.remove();
-  });
-  //--- Функция Картинка Попап----//
-
-  function viewImage() {
-    popupImgUrl.src = link;
-    popupImgTitle.textContent = name;
-    popupImgUrl.alt = name;
+function createCard(data){
+    popupImgUrl.src = data.link;
+    popupImgTitle.textContent = data.name;
+    popupImgUrl.alt = data.name;
     editPopup(popupImg);
-  }
-  const imgButton = element.querySelector('.element__image');
-  imgButton.addEventListener('click', viewImage);
-  return element;
 };
-
 
 //------Заполнение полей формы----------------
 function profileFormInputs() {
@@ -155,21 +136,35 @@ profileFormElement.addEventListener('submit', profileInfoForm);
 //---------------------------------------------------------------------------------------
 function placeInfoForm (evt) {
   evt.preventDefault();
-  const titleValue = titleInput.value;
-  const urlValue = urlInput.value;
-  const addedCard = createCard(titleValue, urlValue);
-  elementsList.prepend(addedCard);
-
+  const placeData = {}
+  placeData.name = titleInput.value;
+  placeData.link = urlInput.value;
+    const card = new Card(placeData, 'element', createCard);
+    const cardElement = card.generateCard();
+    elementsList.prepend(cardElement);
   closePopup(placePopup);
-}
+};
 placeFormElement.addEventListener('submit', placeInfoForm);
 addProfileButton.addEventListener('click', () => editPopupPlace(placePopup));
 
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
-//Функция добавления карточек из массива
+//Создание карточек из массива
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
-initialCards.forEach(function(item){
-  elementsList.append(createCard(item.name, item.link));
-});
+
+initialCards.forEach((item) => {
+  const card = new Card(item, 'element', createCard);
+  const cardElement = card.generateCard();
+  elementsList.append(cardElement);
+}); 
+
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//Валидация форм
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+const validationPlaceForm = new FormValidator(settings, placeFormElement);
+validationPlaceForm.enableValidation();
+const validationProfileForm = new FormValidator(settings, profileFormElement);
+validationProfileForm.enableValidation();
