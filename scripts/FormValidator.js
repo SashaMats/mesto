@@ -34,13 +34,11 @@ class FormValidator {
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(this._errorClass);
-    console.log('showInputError')
   };
   _hideInputError(inputElement) {
     const errorElement = this._form.querySelector(`.${inputElement.name}-input-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
-    console.log('hideInputError')
   };
   _showButton(button, inactiveButtonClass) {
     button.classList.remove(inactiveButtonClass);
