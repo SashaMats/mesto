@@ -7,18 +7,26 @@ class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
+    this._button = this._form.querySelector(this._submitButtonSelector);
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
   }
 
   enableValidation() {
     this._setEventListeners();
   };
+  resetButtonOpenPopup() {
+    this._inputList.forEach((inputElement) => {
+      const errorElement = this._form.querySelector(`.${inputElement.name}-input-error`);
+      inputElement.classList.remove(this._inputErrorClass);
+      errorElement.classList.remove(this._errorClass);
+      this._isVisibleButton();
+    })
+  };
   _setEventListeners() {
-    const button = this._form.querySelector(this._submitButtonSelector);
-    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => { 
         this._isValid(inputElement); 
-        this._isVisibleButton(inputList, button);
+        this._isVisibleButton();
       });
     });
   };
@@ -40,19 +48,19 @@ class FormValidator {
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
   };
-  _showButton(button, inactiveButtonClass) {
-    button.classList.remove(inactiveButtonClass);
-    button.removeAttribute('disabled');
+  _showButton() {
+    this._button.classList.remove(this._inactiveButtonClass);
+    this._button.removeAttribute('disabled');
   };
-  _hideButton(button, inactiveButtonClass) {
-    button.classList.add(inactiveButtonClass);
-    button.setAttribute('disabled', true);
+  _hideButton() {
+    this._button.classList.add(this._inactiveButtonClass);
+    this._button.setAttribute('disabled', true);
   };
-  _isVisibleButton(inputList, button) {
-    if (inputList.some((input) => !input.validity.valid)) {
-      this._hideButton(button, this._inactiveButtonClass);
+  _isVisibleButton() {
+    if (this._inputList.some((input) => !input.validity.valid)) {
+      this._hideButton();
     } else {
-      this._showButton(button, this._inactiveButtonClass);
+      this._showButton();
     };
   };
 };

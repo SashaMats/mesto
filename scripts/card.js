@@ -1,11 +1,11 @@
 export default
 class Card {
-  constructor(data, templateSelector, createCard) {
+  constructor(data, templateSelector, openPopupImage) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._createCard = createCard;
+    this._openPopupImage = openPopupImage;
   }
   _getTemplate() {
     const element = document
@@ -38,10 +38,11 @@ class Card {
   }
   _deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   _imageOpen() {
-    this._createCard(this._data);
+    this._openPopupImage(this._data);
   }
 }
 

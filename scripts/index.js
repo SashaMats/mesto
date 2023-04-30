@@ -1,5 +1,5 @@
 import initialCards from './cards.js';
-import Card from './card.js';
+import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
 const profilePopup = document.getElementById('ProfilePopup');
@@ -69,9 +69,8 @@ function closePopupEsc(evt) {
 function editPopupPlace(placePopup) {
   editPopup(placePopup);
   titleInput.value = '';
-  urlInput.value = ''; 
-  placeFormSaveButton.classList.add('popup__button-save_status-disactive');
-  placeFormSaveButton.setAttribute('disabled', true);
+  urlInput.value = '';
+  validationPlaceForm.resetButtonOpenPopup();
 };
 
 function checkClick(evt, popup) {
@@ -91,11 +90,17 @@ profilePopup.addEventListener('mousedown', (evt) => checkClick(evt, profilePopup
 placePopup.addEventListener('mousedown', (evt) => checkClick(evt, placePopup));
 popupImg.addEventListener('mousedown', (evt) => checkClick(evt, popupImg));
 
-function createCard(data){
+function openPopupImage(data){
     popupImgUrl.src = data.link;
     popupImgTitle.textContent = data.name;
     popupImgUrl.alt = data.name;
     editPopup(popupImg);
+};
+
+function createCard(item) {
+  const card = new Card(item, 'element', openPopupImage);
+  const cardElement = card.generateCard();
+  return cardElement;
 };
 
 //------Заполнение полей формы----------------
@@ -103,6 +108,7 @@ function profileFormInputs() {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
   editPopup(profilePopup);
+  validationProfileForm.resetButtonOpenPopup();
 }
 editButton.addEventListener('click', profileFormInputs);
 //---------------------------------------------------------------------------------------
@@ -139,9 +145,7 @@ function placeInfoForm (evt) {
   const placeData = {}
   placeData.name = titleInput.value;
   placeData.link = urlInput.value;
-    const card = new Card(placeData, 'element', createCard);
-    const cardElement = card.generateCard();
-    elementsList.prepend(cardElement);
+    elementsList.prepend(createCard(placeData));
   closePopup(placePopup);
 };
 placeFormElement.addEventListener('submit', placeInfoForm);
@@ -154,10 +158,8 @@ addProfileButton.addEventListener('click', () => editPopupPlace(placePopup));
 //---------------------------------------------------------------------------------------
 
 initialCards.forEach((item) => {
-  const card = new Card(item, 'element', createCard);
-  const cardElement = card.generateCard();
-  elementsList.append(cardElement);
-}); 
+  elementsList.append(createCard(item));
+});   
 
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
@@ -166,5 +168,6 @@ initialCards.forEach((item) => {
 //---------------------------------------------------------------------------------------
 const validationPlaceForm = new FormValidator(settings, placeFormElement);
 validationPlaceForm.enableValidation();
+
 const validationProfileForm = new FormValidator(settings, profileFormElement);
 validationProfileForm.enableValidation();
