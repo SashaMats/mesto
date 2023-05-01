@@ -15,12 +15,10 @@ class FormValidator {
     this._setEventListeners();
   };
   resetButtonOpenPopup() {
+    this._isVisibleButton();
     this._inputList.forEach((inputElement) => {
-      const errorElement = this._form.querySelector(`.${inputElement.name}-input-error`);
-      inputElement.classList.remove(this._inputErrorClass);
-      errorElement.classList.remove(this._errorClass);
-      this._isVisibleButton();
-    })
+        this._hideInputError(inputElement);
+    });
   };
   _setEventListeners() {
     this._inputList.forEach((inputElement) => {
