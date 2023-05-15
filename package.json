@@ -1,0 +1,33 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "https://sashamats.github.io/mesto/ --------------------- ## Информационный сайт с возможностью добавления личной информмции ## ### Используемые технологии ### * JavaScript * БЭМ * Flex-box верстка * CSS анимации * grid верстка * адаптация для малых разрешений экрана",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SashaMats/mesto.git"
+  },
+  "author": "Alexandr Bokov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SashaMats/mesto/issues"
+  },
+  "homepage": "https://github.com/SashaMats/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.1",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "dependencies": {
+    "core-js": "^3.30.2"
+  }
+}

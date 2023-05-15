@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="pages/index.css" rel="stylesheet">
+  <!-- <link href="pages/index.css" rel="stylesheet"> -->
   <title>Mesto</title>
 </head>
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="images/logo.svg" alt="Логотип">
+    <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип">
   </header>
   <main class="main">
     <section class="profile">
-    <img class="profile__avatar" src="images/cousteau.jpg" alt="Жак-Ив Кусто">
+    <img class="profile__avatar" src="<%=require('./images/cousteau.jpg')%>" alt="Жак-Ив Кусто">
     <div class="profile__info">
       <div class="profile__title-wrapper">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -71,6 +71,6 @@
       <button id="LikeButton" type="button" class="element__like" aria-label="Лайк"></button>
     </li>
   </template>
-  <script type="module" src="scripts/index.js"></script>
+  <!-- <script type="module" src="scripts/index.js"></script> -->
 </body>
 </html>

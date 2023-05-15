@@ -41,7 +41,7 @@ class Card {
     this._element = null;
   }
 
-  _imageOpen() {
+  _imageOpen = () => {
     this._openPopupImage(this._data);
   }
 }
