@@ -11,23 +11,23 @@ class PopupWithForm extends Popup {
 
   _getInputValues() {
     this._userData = {};
-    this._userData.name = this._inputList[0].value;
-    this._userData.link = this._inputList[1].value;
+    this._inputList.forEach(input => {
+    this._userData[input.name] = input.value;
+    });
     return this._userData;
   }
 
   setInputValues(data) {
     this._inputList.forEach(input => {
       input.value = data[input.name];
-    }); 
+    });
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._submitColback(this._getInputValues());
-      this.close();
+      this._submitColback(this._getInputValues(), this.close());
     })
   }
 

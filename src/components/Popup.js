@@ -4,6 +4,7 @@ class Popup {
     this._popup = popupSelector;
     this._buttonClose = this._popup.querySelector('.popup__button-close');
     this._popupImage = this._popup.querySelector('.popup__image');
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
@@ -16,14 +17,17 @@ class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  _handleEscClose = (evt) => {
+  _handleEscClose(evt) {
       if (evt.key === 'Escape') {
         this.close();
       };
     };
 
   setEventListeners() {
-    this._buttonClose.addEventListener('click', () => this.close());
-    this._popup.addEventListener('mousedown', (evt) => {if (evt.target === evt.currentTarget) {this.close()}});
+    this._popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__button-close')) {
+          this.close();
+      }
+    });
   }
 }

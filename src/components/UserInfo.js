@@ -14,6 +14,6 @@ class UserInfo {
 
   setUserInfo = (userData) => {
     this._name.textContent = userData.name;
-    this._job.textContent = userData.link;
+    this._job.textContent = userData.description;
   }
 }
