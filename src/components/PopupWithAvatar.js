@@ -1,7 +1,7 @@
 import Popup from "./Popup.js";
 
 export default
-class PopupWithForm extends Popup {
+class PopupWithAvatar extends Popup {
   constructor(popupSelector, submitColback) {
     super(popupSelector);
     this._submitColback = submitColback;
@@ -9,6 +9,7 @@ class PopupWithForm extends Popup {
     this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
     this._button = this._form.querySelector('.popup__button-save');
     this._buttonText = this._button.textContent;
+
   }
 
   _getInputValues() {

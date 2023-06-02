@@ -1,0 +1,30 @@
+.profile__avatar-button {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  
+  
+}
+
+.profile__avatar-button:before {
+  position: absolute;
+  content: '';
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../images/ico-pencil.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 26px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile__avatar-button:hover::before {
+  opacity: 1;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+}

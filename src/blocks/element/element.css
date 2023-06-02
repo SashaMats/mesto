@@ -1,14 +1,16 @@
 .element {
   position: relative;
   background-color: #ffffff;
-  width: 282px;
+  width: 281px;
+  height: 361px;
   border-radius: 10px;
   overflow: hidden;
   display: grid;
-  align-items: end;
-  justify-items: center;
-  padding-bottom: 25px;
-  grid-template-areas: "image image"
-                        "description like";
+  grid-template-areas:
+      "image image"
+      "description like";
   grid-template-columns: 78% 22%;
+  grid-auto-rows: 78% 22%;
+  justify-items: center;
+  align-items: center;
 }
