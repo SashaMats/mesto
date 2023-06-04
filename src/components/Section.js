@@ -1,8 +1,8 @@
 export default
 class Section {
-  constructor ({ renderer }, selector) {
+  constructor ({ renderer }, container) {
     this.renderer = renderer;
-    this._container = selector;
+    this._container = container;
   }
 
   renderItems(cards) {

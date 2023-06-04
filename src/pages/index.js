@@ -1,54 +1,33 @@
 import './index.css';                                          //включить при webpack
+import {
+  settings,
+  apiData,
+  editButton,
+  addProfileButton,
+  avatarButton,
+  popupProfile,
+  popupAddPlace,
+  popupImage,
+  popupAvatar,
+  popupDelCard,
+  elementsList,
+  userDataFromPage,
+  profileFormElement,
+  placeFormElement,
+  avatarFormElement
+} from '../utils/constants.js'
+
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithAvatar from '../components/PopupWithAvatar.js';
 import PopupDeleteCard from '../components/PopupDeleteCard.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
-
-const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button-save_status-disactive',
-  inputErrorClass: 'popup__input_evt-error',
-  errorClass: 'popup__input-error_active'
-};
-
-const api = new Api ({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
-  headers: {
-    authorization: 'c8278fb8-59b1-406f-bd93-93c438e0e690',
-    'Content-Type': 'application/json'
-  }
-});
-
-const editButton = document.querySelector('.profile__pencil-button');    //кнопка
-const addProfileButton = document.querySelector('.profile__add-button'); //кнопка
-const avatarButton = document.querySelector('.profile__avatar-button');   // кнопка
-const deleteButton = document.querySelector('.element__wastebasket');     // кнопка корзина
-
-const popupProfile = document.querySelector('.popup_profile');            // профайл попап
-const popupAddPlace = document.querySelector('.popup_add-place');         // попап место
-const popupImage = document.querySelector('.popup_img');                  // попап картинка
-const popupAvatar = document.querySelector('.popup_avatar');              // попап аватар
-const popupDelCard = document.querySelector('.popup_delete');            // попап удаления карточки
-
-const elementsList = document.querySelector('.elements__list');           // контейнер карточек
-
-const userDataFromPage = {
-  userName: document.querySelector('.profile__title'),
-  userJob: document.querySelector('.profile__subtitle'),
-  userAvatar: document.querySelector('.profile__avatar')
-}
-
-const profileFormElement = document.forms.profileInfoForm;
-const placeFormElement = document.forms.placeForm;
-const avatarFormElement = document.forms.profileAvatarForm;
+//Класс Api
+const api = new Api(apiData);
 
 //Класс Юзер Дата
 const userData = new UserInfo(userDataFromPage);
@@ -56,35 +35,22 @@ const userData = new UserInfo(userDataFromPage);
 //Класс Попап-удаления карточки 
 const popupWithDeleteForm = new PopupDeleteCard(popupDelCard, 
   ({thisCard, thisId}) => {
-    new Promise((resolve) => {
-      resolve(api.deleteCard(thisId), popupWithDeleteForm.buttonTextLoad())
-    })
-    .then(resolve => {
-      thisCard.deleteCard()
-    })
-    .finally(() => popupWithDeleteForm.close(popupWithDeleteForm.buttonTextDefault()))
+    popupWithDeleteForm.setLoadTextForButton();
+    api
+      .deleteCard(thisId)
+      .then(() => {
+        thisCard.deleteCard();
+        popupWithDeleteForm.close();
+      })
+      .finally(() => {
+        popupWithDeleteForm.setDefaultTextForButton();
+      })
   }
 );
 popupWithDeleteForm.setEventListeners();
 
-// //Класс Секция
-const defaultCardElement = new Section({
-  renderer: (item) => {
-    const card = new Card(item, 'element', 
-    popupWithImageForm.open, 
-    api.setLike, 
-    api.deleteCard, 
-    api.deleteLike, 
-    popupWithDeleteForm.open);
-    const cardElement = card.generateCard();
-    defaultCardElement.setItem(cardElement);
-    }
-  },
-  elementsList
-);
-
-//Функция создания карточки с препендом
-function createCard(item) {
+// Функция рендер карточки
+function getCard(item) {
   const card = new Card(item, 'element', 
   popupWithImageForm.open, 
   api.setLike, 
@@ -92,34 +58,57 @@ function createCard(item) {
   api.deleteLike, 
   popupWithDeleteForm.open);
   const cardElement = card.generateCard();
+  return cardElement;
+}
+
+//Функция создания карточки
+function createCard(item) {
+  const cardElement = getCard(item);
   defaultCardElement.setItemPrepend(cardElement);
 };
+
+// //Класс Секция
+const defaultCardElement = new Section({
+  renderer: (item) => {
+    const cardElement = getCard(item);
+    defaultCardElement.setItem(cardElement);
+  }
+},
+  elementsList
+);
 
 //Класс Попап-создание карточки
 const popupWithAddPlaceForm = new PopupWithForm(
   popupAddPlace, 
   (data) => {
-    Promise.all([api.getAuthorInfo(), api.setCardOnServ(data), popupWithAddPlaceForm.buttonTextLoad()])
-      .then(([dataUserInfo, dataCard]) => {
-        dataCard._authorId = dataUserInfo._id;
-        createCard(dataCard);
-      })
-      .finally(() => popupWithAddPlaceForm.close(popupWithAddPlaceForm.buttonTextDefault()))
+    Promise.all([api.setCardOnServ(data), popupWithAddPlaceForm.setLoadTextForButton()])
+    .then(([dataCard]) => {
+      dataCard._authorId = userData._userId;
+      createCard(dataCard);
+      popupWithAddPlaceForm.close();
+    })
+      .finally(() => popupWithAddPlaceForm.setDefaultTextForButton())
+      .catch((error => console.error('Ошибка при создании карточки' `${error}`)))
     },
 );
 popupWithAddPlaceForm.setEventListeners();
 
 
 //Класс Попап-аватар
-const popapAvatarForm = new PopupWithAvatar(popupAvatar, 
+const popapAvatarForm = new PopupWithForm(popupAvatar, 
   (data) => {
-    new Promise((res) => {
-      res(api.setAuthorAvatar(data), popapAvatarForm.buttonTextLoad())
-    })
-    .then(res => userData.setUserAvatar({link: res.avatar}))
-    .finally(() => {popapAvatarForm.buttonTextDefault(), popapAvatarForm.close()})
+    popapAvatarForm.setLoadTextForButton();
+    api
+      .setAuthorAvatar(data)
+      .then(res => {
+        userData.setUserAvatar({link: res.avatar});
+        popapAvatarForm.close();
+      })
+    .finally(() => {popapAvatarForm.setDefaultTextForButton()})
+    .catch((error => console.error('Ошибка при изменении аватара' `${error}`)))
   }
 );
+
 popapAvatarForm.setEventListeners();
 
 //Класс Попап-картинка
@@ -127,14 +116,21 @@ const popupWithImageForm = new PopupWithImage(popupImage);
 popupWithImageForm.setEventListeners();
 
 //Класс Попап - данные пользователя
+
 const popupWithProfileForm = new PopupWithForm(popupProfile, 
   (data) => {
-  new Promise((res) => {
-    res(api.setAuthorInfo(data), popupWithProfileForm.buttonTextLoad())
-  })
-  .then(res => userData.setUserInfo({name: res.name, description: res.about}))
-  .finally(() => popupWithProfileForm.close(popupWithProfileForm.buttonTextDefault()))
-});
+    popupWithProfileForm.setLoadTextForButton();
+    api
+      .setAuthorInfo(data)
+      .then(res => {
+        userData.setUserInfo({name: res.name, description: res.about});
+        popupWithProfileForm.close()
+      })
+      .finally(() => popupWithProfileForm.setDefaultTextForButton())
+      .catch((error => console.error('Ошибка при редактировании данных пользователя' `${error}`)))
+  }
+);
+
 popupWithProfileForm.setEventListeners();
 
 //Открытие попап создание карточки
@@ -152,6 +148,7 @@ editButton.addEventListener('click', () => {
 //Открытие попап редактор аватара
 avatarButton.addEventListener('click', () => {
   popapAvatarForm.open();
+  validationAvatarForm.resetButtonOpenPopup();
 })
 
 //Валидаторы
@@ -171,8 +168,10 @@ Promise.all([api.getAuthorInfo(), api.getInitialCards()])
       element._authorId = dataUserInfo._id
     });
     defaultCardElement.renderItems(dataCard);
+
     // User info
-    const userDataServ = new UserInfo(userDataFromPage);
-    userDataServ.setUserInfo({ name: dataUserInfo.name, description: dataUserInfo.about});
-    userDataServ.setUserAvatar({link: dataUserInfo.avatar});
+    userData.setUserInfo({ name: dataUserInfo.name, description: dataUserInfo.about});
+    userData.setUserAvatar({link: dataUserInfo.avatar});
+    userData._userId = dataUserInfo._id;
   })
+  .catch((error => console.error('Ошибка при получении данных с сервера о пользователе и карточках' `${error}`)))

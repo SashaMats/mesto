@@ -6,7 +6,7 @@ export default
       this._autoriz = options.headers.authorization;
     }
 
-  _responseMethod(res) {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json()
     } else {
@@ -16,32 +16,25 @@ export default
 
   getInitialCards() {
     return fetch(this._baseUrl + '/cards', {
-      headers: {
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
 
   setCardOnServ = (data) => {
     return fetch(this._baseUrl + '/cards', {
       method: 'POST',
       body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
 
   getAuthorInfo() {
     return fetch(this._baseUrl + '/users/me', {
-      headers: {
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
   setAuthorInfo = (data) => {
     return fetch(this._baseUrl + '/users/me', {
@@ -50,12 +43,9 @@ export default
         name: data.name,
         about: data.description
       }),
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
   setAuthorAvatar = (data) => {
     return fetch(this._baseUrl + '/users/me/avatar ', {
@@ -63,44 +53,32 @@ export default
       body: JSON.stringify({
         avatar: data.link
       }),
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
 
   setLike = (dataId) => {
     return fetch(this._baseUrl + '/cards/' + `${dataId}` + '/likes', {
       method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
 
   deleteLike = (cardId) => {
     return fetch(this._baseUrl + '/cards/' + `${cardId}` + '/likes', {
       method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
 
   deleteCard(data) {
     return fetch(this._baseUrl + '/cards/' + `${data}`, {
       method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this._autoriz
-      }
+      headers: this._headers
     })
-    .then((res) => this._responseMethod(res));
+    .then((res) => this._checkResponse(res));
   }
 }

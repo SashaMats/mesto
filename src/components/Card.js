@@ -32,14 +32,12 @@ class Card {
   _showLike() {
     this._likes.forEach(item => {
       if (item._id === this._authorId) {
-        this._likeButton = this._element.querySelector('.element__like');
         this._likeButton.classList.add('element__like_active');
       };
     })
   }
 
-  _likeCount(data) {
-    this._cardLikes = this._element.querySelector('.element__likes-count');
+  _countLikes(data) {
     this._cardLikes.textContent = data;
   }
 
@@ -69,18 +67,23 @@ class Card {
     this._wasteBasketButton.addEventListener('click', () => this._openDeletePopup());
     this._cardImage.addEventListener('click', () => this._imageOpen());
   }
+  
   _likeToggle() {
     const dataId = this._data._id;
     if (this._likeButton.classList.contains('element__like_active')) {
-      this._deleteLikeOnServ(dataId).then(res => {
-        this._likeCount(res.likes.length);
-        this._likeButton.classList.toggle('element__like_active');
-      })
+      this._deleteLikeOnServ(dataId)
+        .then(res => {
+        this._countLikes(res.likes.length);
+        this._likeButton.classList.remove('element__like_active');
+        })
+        .catch((error) => console.error(`Ошибка в функции лайк ${error}`))
     } else {
-      this._likeFunction(dataId).then(res => {
-      this._likeCount(res.likes.length);
-      this._likeButton.classList.toggle('element__like_active');
-      })
+      this._likeFunction(dataId)
+        .then(res => {
+        this._countLikes(res.likes.length);
+        this._likeButton.classList.add('element__like_active');
+        })
+        .catch((error) => console.error(`Ошибка в функции лайк ${error}`))
       }
   };
 

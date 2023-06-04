@@ -2,8 +2,8 @@ import Popup from "./Popup.js";
 
 export default
 class PopupWithForm extends Popup {
-  constructor(popupSelector, submitColback) {
-    super(popupSelector);
+  constructor(popupElement, submitColback) {
+    super(popupElement);
     this._submitColback = submitColback;
     this._form = this._popup.querySelector('.popup__form');
     this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
@@ -33,11 +33,11 @@ class PopupWithForm extends Popup {
     })
   }
 
-  buttonTextLoad() {
+  setLoadTextForButton() {
     this._button.textContent = `${this._button.textContent}...`
   }
 
-  buttonTextDefault() {
+  setDefaultTextForButton() {
     this._button.textContent = `${this._buttonText}`
   }
 
